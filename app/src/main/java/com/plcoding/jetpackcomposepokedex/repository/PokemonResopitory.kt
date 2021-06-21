@@ -18,7 +18,7 @@ class PokemonResopitory @Inject constructor(
         }catch (e: Exception) {
      return Resource.Error("An unknown error occured during list loading")
         }
-        return Resource.Succes(response)
+        return Resource.Success(response)
     }
 
     suspend fun getPokemonInfo(pokemonName: String): Resource<Pokemon> {
@@ -27,6 +27,6 @@ class PokemonResopitory @Inject constructor(
         }catch (e: Exception) {
             return Resource.Error("An unknown error occured during list loading")
         }
-        return Resource.Succes(response)
+        return Resource.Success(response)
     }
 }
