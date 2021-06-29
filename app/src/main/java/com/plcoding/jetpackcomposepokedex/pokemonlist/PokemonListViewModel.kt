@@ -1,31 +1,26 @@
 package com.plcoding.jetpackcomposepokedex.pokemonlist
 
 import android.graphics.Bitmap
-import android.graphics.ColorSpace
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Blue
-import androidx.compose.ui.text.capitalize
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.palette.graphics.Palette
 import com.plcoding.jetpackcomposepokedex.data.models.PokedexListEntry
-import com.plcoding.jetpackcomposepokedex.repository.PokemonResopitory
+import com.plcoding.jetpackcomposepokedex.repository.PokemonRepository
 import com.plcoding.jetpackcomposepokedex.util.Constants.PAGE_SIZE
 import com.plcoding.jetpackcomposepokedex.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class PokemonListViewModel @Inject constructor(
-    private val repository: PokemonResopitory
+    private val repository: PokemonRepository
 ) : ViewModel() {
 
     private var curPage = 0

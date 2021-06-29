@@ -7,8 +7,8 @@ import timber.log.Timber.plant
 
 import java.util.*
 
-@HiltAndroidApp
-class PokedexApplication : Application() {
+@HiltAndroidApp // this is for hilt
+class PokedexApplication : Application() { // add this to manifest as name". pokedex application
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())

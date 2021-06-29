@@ -15,18 +15,20 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
+import com.plcoding.jetpackcomposepokedex.pokemondetail.PokemonDetailScreen
 import com.plcoding.jetpackcomposepokedex.pokemonlist.PokemonListScreen
 import com.plcoding.jetpackcomposepokedex.ui.theme.JetpackComposePokedexTheme
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
-@AndroidEntryPoint
+@AndroidEntryPoint /// for dager hilt to inject
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             JetpackComposePokedexTheme {
                 //setup navigation
-                // create a navhost what iss containing the different screens
+                // create a navhost what is containing the different screens
                 //and itt responsible, to replace the screens, when we navigate
                 val navController = rememberNavController()
                 NavHost(
@@ -36,7 +38,7 @@ class MainActivity : ComponentActivity() {
                     composable("pokemon_list_screen") {
                         PokemonListScreen(navController = navController)
                     }
-                    composable(
+                    composable(// passed parameters for the screen
                         "pokemon_detail_screen/{dominantColor}/{pokemonName}",
                         arguments = listOf(
                             navArgument("dominantColor"){
@@ -54,6 +56,9 @@ class MainActivity : ComponentActivity() {
                         val pokemonName = remember {
                             it.arguments?.getString("pokemonName")
                         }
+                        PokemonDetailScreen(dominantColor = dominantColor,
+                            pokemonName = pokemonName?.toLowerCase(Locale.ROOT) ?: "",
+                            navController = navController)
                     }
                 }
             }

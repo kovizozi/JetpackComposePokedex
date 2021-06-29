@@ -146,6 +146,7 @@ fun PokemonList(
                 viewModel.loadPokemonPaginated()
             }
             PokedexRow(rowIndex = it, entries = pokemonList, navController = navController)
+
         }
     }
     Box(
