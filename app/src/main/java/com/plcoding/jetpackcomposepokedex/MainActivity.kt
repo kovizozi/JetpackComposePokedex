@@ -15,13 +15,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
+import com.plcoding.jetpackcomposepokedex.mypokemondetail.MyPokemonDetailScreen
 import com.plcoding.jetpackcomposepokedex.pokemondetail.PokemonDetailScreen
 import com.plcoding.jetpackcomposepokedex.pokemonlist.PokemonListScreen
 import com.plcoding.jetpackcomposepokedex.ui.theme.JetpackComposePokedexTheme
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
-@AndroidEntryPoint /// for dager hilt to inject
+@AndroidEntryPoint /// for dagger hilt to inject
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,31 +35,57 @@ class MainActivity : ComponentActivity() {
                 NavHost(
                     navController = navController,
                     startDestination = "pokemon_list_screen"
-                ){
+                ) {
                     composable("pokemon_list_screen") {
                         PokemonListScreen(navController = navController)
                     }
                     composable(// passed parameters for the screen
                         "pokemon_detail_screen/{dominantColor}/{pokemonName}",
                         arguments = listOf(
-                            navArgument("dominantColor"){
+                            navArgument("dominantColor") {
                                 type = NavType.IntType
                             },
-                            navArgument("pokemonName"){
-                               type = NavType.StringType
+                            navArgument("pokemonName") {
+                                type = NavType.StringType
                             }
                         )
-                        ){
+                    ) {
                         val dominantColor = remember {
                             val color = it.arguments?.getInt("dominantColor")
-                            color?.let{ Color(it)} ?: Color.White
+                            color?.let { Color(it) } ?: Color.White
                         }
                         val pokemonName = remember {
                             it.arguments?.getString("pokemonName")
                         }
-                        PokemonDetailScreen(dominantColor = dominantColor,
+                        PokemonDetailScreen(
+                            dominantColor = dominantColor,
                             pokemonName = pokemonName?.toLowerCase(Locale.ROOT) ?: "",
-                            navController = navController)
+                            navController = navController
+                        )
+                    }
+                    composable(
+                        "pokemon_detail_screen_my/{dominantColor}/{pokemonName}",
+                        arguments = listOf(
+                            navArgument("dominantColor") {
+                                type = NavType.IntType
+                            },
+                            navArgument("pokemonName") {
+                                type = NavType.StringType
+                            }
+                        )
+                    ){
+                        val dominantColor = remember {
+                            val color =it.arguments?.getInt("dominantColor")
+                            color?.let {Color(it)} ?: Color.White
+                        }
+                        val pokemonName = remember {
+                            it.arguments?.getString("pokemonName")
+                        }
+                        MyPokemonDetailScreen(
+                            dominantColor,
+                            pokemonName?.toLowerCase(Locale.ROOT) ?: "",
+                            navController
+                        )
                     }
                 }
             }
